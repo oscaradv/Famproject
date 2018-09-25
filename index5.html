@@ -1,0 +1,480 @@
+<!doctype HTML>
+<html>
+<head>
+	<title>Age family game</title>
+	<meta charset="utf-8">
+	 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="../../../../favicon.ico"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="main.css" /> -->
+    
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+	
+</head>
+
+
+	<body>
+    
+	
+	<script language="JavaScript">
+// <!--
+// Begin Hiding Script
+// Formula
+
+function ResetForm(obj) {
+  // Get the Date and set default
+  var the_date  = new Date();
+  var the_month = the_date.getMonth() + 1;
+  var the_day   = the_date.getDate();
+  var the_year  = the_date.getFullYear();
+  var ToDate    = the_month + "/" + the_day + "/" + the_year;
+
+  obj.DoB.value = "";
+  obj.DoC.value = ToDate;
+  obj.AgeYears.value = " ";
+  obj.AgeRmdr.value = " ";
+  obj.AgeMonth.value = " ";
+  obj.AgeWeeks.value = " ";
+  obj.AgeDays.value = " ";
+}
+
+function CalcAge(obj) {
+  var DoB    = Date.parse(obj.DoB.value);
+  var DoC    = Date.parse(obj.DoC.value);
+  var AOkay  = true;
+
+  // Check dates for validity
+  if ((DoB==null)||(isNaN(DoB))) {
+    alert("Date of Birth is invalid.");
+    AOkay = false;
+  }
+  if ((DoC==null)||(isNaN(DoC))) {
+    alert("Specified Date is invalid.");
+    AOkay = false;
+  }
+
+  var ToDate   = new Date();
+  var ToDateYr = ToDate.getFullYear();
+  var DateofB  = new Date(DoB);
+  var DoBYr    = DateofB.getFullYear();
+  var DoBMo    = DateofB.getMonth();
+  var DoBDy    = DateofB.getDate();
+
+  obj.DoB.value = (DoBMo+1) +"/"+ DoBDy +"/"+ DoBYr;
+
+  var DateofC  = new Date(DoC);
+  var DoCYr    = DateofC.getFullYear();
+  var DoCMo    = DateofC.getMonth();
+  var DoCDy    = DateofC.getDate();
+
+  obj.DoC.value = " "+ (DoCMo+1) +"/"+ DoCDy +"/"+ DoCYr;
+
+  if (DoB > DoC) {
+    alert("The Date of Birth is after the specified date.");
+    AOkay = false;
+  }
+
+  if (DoC > ToDate) {
+    alert("The specified date is in the future.\n           Continuing calculation.");
+  }
+
+  if (AOkay) {
+    var AgeDays  = 0;
+    var AgeWeeks = 0;
+    var AgeMonth = 0;
+    var AgeYears = 0;
+    var AgeRmdr  = 0;
+
+    mSecDiff   = DoC - DoB;
+    AgeDays  = mSecDiff / 86400000;
+    AgeWeeks = AgeDays / 7;
+    AgeMonth = AgeDays / 30.4375;
+    AgeYears = AgeDays / 365.24;    
+    AgeYears = Math.floor(AgeYears);
+    AgeRmdr  = (AgeDays - AgeYears * 365.24) / 30.4375;
+
+    AgeDays  = Math.round(AgeDays * 10) / 10;
+    AgeWeeks = Math.round(AgeWeeks * 10) / 10;
+    AgeMonth = Math.round(AgeMonth * 10) / 10;
+    AgeRmdr  = Math.round(AgeRmdr * 10) / 10;
+
+    obj.AgeDays.value = AgeDays;
+    obj.AgeWeeks.value = AgeWeeks;
+    obj.AgeMonth.value = AgeMonth;
+    obj.AgeYears.value = AgeYears;
+    obj.AgeRmdr.value = AgeRmdr;
+  }
+}
+
+// END Hiding Script 
+// -->
+</script>
+
+	
+	<!-- <div class="input"> -->
+	
+	<!-- <input type="date" class="form-control" style="padding:10px";/> -->
+    <!-- </div> -->
+	
+	<div class="input" style="background-color:#E6EFF2">
+	<form action="" name="Age" style="margin-top:50px">
+          <table border="0" cellpadding="" align="center">
+            <tbody><tr> 
+              <td>Date of Birth</td>
+              <td></td>
+              <td> 
+                <input type="text" name="DoB" size="10">
+              </td>
+            </tr>
+            <tr> 
+              <td>Age at This Date</td>
+              <td></td>
+              <td> 
+                <input type="text" name="DoC" size="10">
+              </td>
+            </tr>
+            <tr> 
+              <td colspan="3"> 
+                <div align="center"> 
+                  <input type="button" name="CalculateAge" value="Calculate" onclick="CalcAge(this.form)">
+                  <input type="button" name="ClearSome" value="Clear" onclick="ResetForm(this.form)">
+                </div>
+              </td>
+            </tr>
+            <tr> 
+              <td> 
+                <div align="right">Age&nbsp;</div>
+              </td>
+              <td> =&nbsp;</td>
+              <td> 
+                <input type="text" name="AgeYears" size="6">
+                years 
+                <input type="text" name="AgeRmdr" size="5">
+                months</td>
+            </tr>
+            <tr> 
+              <td></td>
+              <td>=&nbsp;</td>
+              <td> 
+                <input type="text" name="AgeMonth" size="6">
+                months</td>
+            </tr>
+            <tr> 
+              <td></td>
+              <td>=&nbsp;</td>
+              <td> 
+                <input type="text" name="AgeWeeks" size="6">
+                weeks</td>
+            </tr>
+            <tr> 
+              <td></td>
+              <td>=&nbsp;</td>
+              <td> 
+                <input type="text" name="AgeDays" size="6">
+                days</td>
+            </tr>
+          </tbody></table>
+		  </div>
+		  
+	
+	<div class="allages" style="margin-top:50px">
+ 
+  <table class="bordered" border="2px" align="center" >
+    <tr>
+      <th style="padding:0px 5px 0px 5px">Nombre</th>
+      <th style="padding:0px 5px 0px 5px">Fecha nacimiento</th>
+      <th style="padding:0px 5px 0px 5px">Nombre</th>
+      <th style="padding:0px 5px 0px 5px">Fecha de nacimiento</th>
+    </tr>
+    <tr>
+      <td>Papa</td>
+      <td>01/20/1898</td>
+      <td>Mama</td>
+      <td>04/14/1911</td>
+    </tr>
+    <tr>
+      <td>Omar</td>
+      <td>01/14/1934</td>
+      <td>Ledita</td>
+      <td>01/17/1937</td>
+    </tr>
+    <tr>
+      <td>Sonia</td>
+      <td>08/03/1939</td>
+      <td>Norita</td>
+      <td>04/25/1945</td>
+    </tr>
+	<tr>
+      <td>Oscar</td>
+      <td>11/29/1947</td>
+      <td>Gladys</td>
+      <td>03/26/1953</td>
+    </tr>
+	
+	 <div class="parejas">
+	 <tr>
+	  <th style="padding:0px 5px 0px 5px">Parejas</th>
+      <th style="padding:0px 5px 0px 5px"></th>
+      <th style="padding:0px 5px 0px 5px"></th>
+      <th style="padding:0px 5px 0px 5px"></th>
+	  </tr>
+    <tr>
+      <td>Eugenia Ribero</td>
+      <td></td>
+      <td>Raul Pacheco</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Jaime Pieschacon</td>
+      <td></td>
+      <td>Gabriel Garcia-Pena</td>
+      <td></td>
+    </tr>
+	<tr>
+      <td>Alicia Sotomayor</td>
+      <td></td>
+      <td>Nelson Franki</td>
+      <td></td>
+  </div>
+	<div class="nietos">
+	<tr>
+	  <th style="padding:0px 5px 0px 5px">Nietos</th></th>
+      <th style="padding:0px 5px 0px 5px"></th>
+      <th style="padding:0px 5px 0px 5px"></th>
+      <th style="padding:0px 5px 0px 5px"></th>
+	  </tr>
+    <tr>
+      <td>Silvia Cristina</td>
+      <td></td>
+      <td>Maria del Pilar</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Carlos Alberto</td>
+      <td></td>
+      <td>Omar Fernando</td>
+      <td></td>
+    </tr>
+	<tr>
+      <td>Raul Eduardo</td>
+      <td></td>
+      <td>Aura Sofia</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Carlitos</td>
+      <td></td>
+      <td>Leda Lucia</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Monica</td>
+      <td></td>
+      <td>Claudia</td>
+      <td></td>
+    </tr>
+	<tr>
+      <td>Catalina</td>
+      <td></td>
+      <td>Damaris</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Gisela</td>
+      <td></td>
+      <td>Adriana</td>
+      <td>07/18/1967</td>
+    </tr>
+    <tr>
+      <td>Mauricio</td>
+      <td>12/03/1969</td>
+      <td>Oscar Javier</td>
+      <td>07/09/1979</td>
+    </tr>
+	<tr>
+      <td>Alice</td>
+      <td>09/26/1981</td>
+      <td>Andrea</td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Tatiana</td>
+      <td></td>
+	  </tr>
+	  </div>
+	  
+	 <div class="parejasnietos">
+	<tr>
+	  <th style="padding:0px 5px 0px 5px">Parejas nietos</th>
+      <th style="padding:0px 5px 0px 5px"></th>
+      <th style="padding:0px 5px 0px 5px"></th>
+      <th style="padding:0px 5px 0px 5px"></th>
+    <tr>
+      <td>Chepe</td>
+      <td></td>
+      <td>Osmar</t></td>
+	  <td></td>
+    </tr>
+	<tr>
+      <td>Diana</td>
+      <td></td>
+      <td>Marta</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Claudia Glen</td>
+      <td></td>
+      <td>Pipe</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Scott de Giralomo</td>
+      <td></td>
+      <td>Alejandro Briceno</td>
+      <td></td>
+    </tr>
+	 <tr>
+      <td>David</td>
+      <td></td>
+      <td>Mauricio Calderon</td>
+      <td></td>
+	  </tr> 
+	  	 <tr>
+      <td>Giovanni Calderon</td>
+      <td></td>
+      <td>Mauricio Chaparro</td>
+      <td></td>
+	  </tr>
+	  	 <tr>
+      <td>Victoria Valdes</td>
+      <td></td>
+      <td>Vivek Mano</td>
+      <td>07/10/84</td>
+	  </tr> 
+	  	 <tr>
+      <td>Nelson</td>
+      <td></td>
+      <td></td>
+      <td></td>
+	  </tr> 
+	  
+     </div>
+	   <div class="Biznietos">
+	<tr>
+	  <th style="padding:0px 5px 0px 5px">Biznietos</th>
+      <th style="padding:0px 5px 0px 5px"></th>
+      <th style="padding:0px 5px 0px 5px"></th>
+      <th style="padding:0px 5px 0px 5px"></th>
+	  </tr> 
+	 <tr>
+      <td>Estibaliz</td>
+      <td></td>
+	  <td>Juliana</td>
+	  <td></td>
+	 </tr>
+	 <tr>
+      <td>Felipe</td>
+      <td></td>
+	  <td>Gabriela</td>
+	  <td></td>
+	 </tr>
+	 <tr> 
+      <td>Maximo</td>
+      <td></td>
+	  <td>Uma</td>
+	  <td></td>
+    </tr>
+     <tr>
+      <td>Luanda</td>
+      <td></td>
+	  <td>Natalia</td>
+	  <td></td>
+	 </tr>
+	 <tr>
+      <td>Laurita</td>
+      <td></td>
+	  <td>Juanita</td>
+	  <td></td>
+	  </tr>
+	 <tr> 
+      <td>Juan Pablo</td>
+      <td>08/18/1998</td>
+	  <td>Maria Jose</td>
+	  <td>01/03/2002</td>
+    </tr>
+	 <tr>
+      <td>Nicolas</td>
+      <td>09/18/2007</td>
+	  <td>Santiago</td>
+	  <td>02/23/2014</td>
+	  </tr>
+	  <tr> 
+      <td>Mia</td>
+      <td></td>
+	  <td>Eva</td>
+	  <td>06/23/2017</td>
+    </tr>
+	 <tr> 
+      <td>Sofia Lucia</td>
+      <td>06/23/2017</td>
+	  <td>Sebastian Jay</td>
+	  <td>06/23/2017</td>
+    </tr>
+	</div>
+	</div>
+  </table>
+ 
+
+		  
+<script language="JavaScript">
+<!--
+// Begin Hiding Script
+
+// Get the Date and set default
+var the_date  = new Date();
+var the_month = the_date.getMonth() + 1;
+var the_day   = the_date.getDate();
+var the_year  = the_date.getFullYear();
+var ToDate    = the_month + "/" + the_day + "/" + the_year;
+
+window.document.Age.DoC.value = ToDate;
+// END Hiding Script 
+// -->
+</script>
+        </form>
+
+	<!-- <div class="row"> -->
+  <!-- <div class="col-lg-6"> -->
+    <!-- <div class="input-group"> -->
+      <!-- <span class="input-group-addon"> -->
+        <!-- <input type="checkbox" aria-label="..." style="width:600px; margin:auto;"> -->
+      <!-- </span> -->
+      <!-- <input type="date" class="form-control" aria-label="..." style="width:150px; margin-left:70%;"> -->
+    <!-- </div><!-- /input-group --> -->
+  <!-- </div>  -->
+  
+  
+ 
+
+
+	
+	 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+	
+	
+	
+	
+	<!-- <script -->
+		<!-- src="app.js"> -->
+		<!-- </script> -->
+		
+		
+        
+    
+    
+    </body> 
